@@ -104,7 +104,7 @@ export class GenericDatasource {
   buildQueryParameters(options) {
     //remove place holder targets
     options.targets = _.filter(options.targets, target => {
-      return target.target !== '<database>.<collection>.aggregate({})';
+      return target.target !== 'select metric';
     });
 
     var targets = _.map(options.targets, target => {

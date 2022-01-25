@@ -151,7 +151,7 @@ System.register(['lodash'], function (_export, _context) {
 
             //remove place holder targets
             options.targets = _.filter(options.targets, function (target) {
-              return target.target !== 'select metric';
+              return target.target !== '<database>.<collection>.aggregate({})';
             });
 
             var targets = _.map(options.targets, function (target) {
