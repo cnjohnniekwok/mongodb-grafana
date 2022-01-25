@@ -104,7 +104,7 @@ export class GenericDatasource {
   buildQueryParameters(options) {
     //remove place holder targets
     options.targets = _.filter(options.targets, target => {
-      return target.target !== 'select metric';
+      return target.target !== '<database>.<collection>.aggregate({})';
     });
 
     var targets = _.map(options.targets, target => {
@@ -112,7 +112,7 @@ export class GenericDatasource {
         target: this.templateSrv.replace(target.target, options.scopedVars, ''),
         refId: target.refId,
         hide: target.hide,
-        type: target.type || 'timeserie'      
+        type: target.type || 'timeserie'
       };
     });
 
