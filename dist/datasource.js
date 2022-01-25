@@ -164,8 +164,6 @@ System.register(['lodash'], function (_export, _context) {
             });
 
             options.targets = targets;
-            console.log(targets)
-
             return options;
           }
         }]);
