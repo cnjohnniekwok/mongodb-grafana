@@ -314,26 +314,29 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
       }
 
       // Get the documents collection
-      if(queryArgs.collection.split(".").length > 1){
+      if(queryArgs.collection.split(".").length > 1 && queryArgs.collection.split(".").length <= 2){
         //                0            1
         // format: db.<database>.<collection>.aggregate({})
         queryArgs.collection = queryArgs.collection.split(".")[1];
+      }
+      else if(queryArgs.collection.split(".").length > 2){
+        console.log("[Debug] queryId -: " + queryId);
+        console.log("[Debug] dbLookUp -: " + dbLookUp);
+        console.log("[Debug] body.targets.db -: '" + dbLookUp + "'" )
+        console.log("[Debug] body.db.db -: '" + body.db.db + "'")
+        console.log("[Debug] queryArg.collection -: '" + queryArgs.collection + "'")
+        console.log("-------------------------------------")
+        console.log(queryArgs.pipeline)
+        console.log("-------------------------------------")
+        console.log(queryArgs.agg_options)
+        console.log("-------------------------------------")
       }
 
       const collection = db.collection(queryArgs.collection);
       logQuery(queryArgs.pipeline, queryArgs.agg_options)
       var stopwatch = new Stopwatch(true)
 
-      //console.log("[Debug] queryId -: " + queryId);
-      //console.log("[Debug] dbLookUp -: " + dbLookUp);
-      //console.log("[Debug] body.targets.db -: '" + dbLookUp + "'" )
-      //console.log("[Debug] body.db.db -: '" + body.db.db + "'")
-      //console.log("[Debug] queryArg.collection -: '" + queryArgs.collection + "'")
-      //console.log("-------------------------------------")
-      //console.log(queryArgs.pipeline)
-      //console.log("-------------------------------------")
-      //console.log(queryArgs.agg_options)
-      //console.log("-------------------------------------")
+
 
       collection.aggregate(queryArgs.pipeline, queryArgs.agg_options).toArray(function(err, docs)
         {
