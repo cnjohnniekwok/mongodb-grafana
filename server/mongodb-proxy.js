@@ -313,22 +313,14 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
 
         // format: db.<database>.<collection>.aggregate({})
         console.log("[Debug] queryArg.collection -: '" + queryArgs.collection + "'")
-        queryArgs.collection = queryArgs.collection.split(".").slice(1).join(".")
-        console.log("[Debug] queryArg.collection ==> -: '" + queryArgs.collection + "'")
 
+        queryArgs.collection = queryArgs.collection.split(".").slice(1).filter(Boolean).join(".")
+
+        console.log("[Debug] queryArg.collection ==> -: '" + queryArgs.collection + "'")
         //console.log("[Debug] queryId -: " + queryId);
         //console.log("[Debug] body.targets.db -: '" + dbLookUp + "'" )
         //console.log("[Debug] body.db.db -: '" + body.db.db + "'")
 
-      }
-
-      // Empty collection will assgin an invaild collection name (return empty result only, no error will trigger restart)
-      if(queryArgs.collection[0] == '.'){
-        queryArgs.collection = queryArgs.collection.slice(1);
-      }
-
-      if(queryArgs.collection[queryArgs.collection.length-1] == '.'){
-        queryArgs.collection = queryArgs.collection.slice(0,-1);
       }
 
       const collection = db.collection(queryArgs.collection);
