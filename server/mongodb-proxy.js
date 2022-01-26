@@ -323,8 +323,12 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
       }
 
       // Empty collection will assgin an invaild collection name (return empty result only, no error will trigger restart)
-      if(queryArgs.collection == ""){
-         queryArgs.collection = "INVAILD_COLLECTION";
+      if(queryArgs.collection[0] == '.'){
+        queryArgs.collection = queryArgs.collection.slice(1);
+      }
+
+      if(queryArgs.collection[queryArgs.collection.length-1] == '.'){
+        queryArgs.collection = queryArgs.collection.slice(0,-1);
       }
 
       const collection = db.collection(queryArgs.collection);
