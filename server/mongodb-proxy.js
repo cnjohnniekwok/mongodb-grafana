@@ -312,7 +312,9 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
       if(queryArgs.collection.split(".").length > 1){
 
         // format: db.<database>.<collection>.aggregate({})
-        queryArgs.collection = queryArgs.collection.split(".").slice(1,queryArgs.collection.length-1).join(".")
+        console.log("[Debug] queryArg.collection -: '" + queryArgs.collection + "'")
+        queryArgs.collection = queryArgs.collection.split(".").slice(1).join(".")
+        console.log("[Debug] queryArg.collection ==> -: '" + queryArgs.collection + "'")
 
         //console.log("[Debug] queryId -: " + queryId);
         //console.log("[Debug] body.targets.db -: '" + dbLookUp + "'" )
@@ -324,8 +326,6 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
       if(queryArgs.collection == ""){
          queryArgs.collection = "INVAILD_COLLECTION";
       }
-
-      console.log("[Debug] queryArg.collection -: '" + queryArgs.collection + "'")
 
       const collection = db.collection(queryArgs.collection);
       logQuery(queryArgs.pipeline, queryArgs.agg_options)
