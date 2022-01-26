@@ -308,11 +308,6 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
 
       const db = client.db(body.db.db);
 
-      // Empty collection will assgin an invaild collection name (return empty result only, no error will trigger restart)
-      if(queryArgs.collection == ""){
-        queryArgs.collection = "INVAILD_COLLECTION";
-      }
-
       // Get the documents collection
       if(queryArgs.collection.split(".").length > 1){
 
@@ -322,9 +317,15 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
         //console.log("[Debug] queryId -: " + queryId);
         //console.log("[Debug] body.targets.db -: '" + dbLookUp + "'" )
         //console.log("[Debug] body.db.db -: '" + body.db.db + "'")
-        //console.log("[Debug] queryArg.collection -: '" + queryArgs.collection + "'")
+
       }
 
+      // Empty collection will assgin an invaild collection name (return empty result only, no error will trigger restart)
+      if(queryArgs.collection == ""){
+         queryArgs.collection = "INVAILD_COLLECTION";
+      }
+
+      console.log("[Debug] queryArg.collection -: '" + queryArgs.collection + "'")
 
       const collection = db.collection(queryArgs.collection);
       logQuery(queryArgs.pipeline, queryArgs.agg_options)
