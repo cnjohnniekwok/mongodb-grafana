@@ -288,12 +288,6 @@ function parseQuery(query, substitutions)
 
 function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
 {
-  //console.log("[Debug] queryId:")
-  //console.log(queryId)
-  //console.log("[Debug] queryArgs:")
-  //console.log(queryArgs)
-  //console.log("[Debug] body.targets:")
-  //console.log("[Debug] body.db.url -:" + body.db.url)
   MongoClient.connect(body.db.url, function(err, client)
   {
     if ( err != null )
@@ -310,24 +304,13 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
 
       // Get the documents collection
       if(queryArgs.collection.split(".").length > 1){
-
-        // format: db.<database>.<collection>.aggregate({})
-        console.log("[Debug] queryArg.collection -: '" + queryArgs.collection + "'")
-
+        //extract collection name, aviod triming off collection name with "." in it (consecutive "...") will treat as one "."
         queryArgs.collection = queryArgs.collection.split(".").slice(1).filter(Boolean).join(".")
-
-        console.log("[Debug] queryArg.collection ==> -: '" + queryArgs.collection + "'")
-        //console.log("[Debug] queryId -: " + queryId);
-        //console.log("[Debug] body.targets.db -: '" + dbLookUp + "'" )
-        //console.log("[Debug] body.db.db -: '" + body.db.db + "'")
-
       }
 
       const collection = db.collection(queryArgs.collection);
       logQuery(queryArgs.pipeline, queryArgs.agg_options)
       var stopwatch = new Stopwatch(true)
-
-
 
       collection.aggregate(queryArgs.pipeline, queryArgs.agg_options).toArray(function(err, docs)
         {
