@@ -315,14 +315,14 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
 
       // Get the documents collection
       if(queryArgs.collection.split(".").length > 1){
-        //                0            1
+
         // format: db.<database>.<collection>.aggregate({})
         queryArgs.collection = queryArgs.collection.split(".").slice(1,queryArgs.collection.length-1).join(".")
 
-        console.log("[Debug] queryId -: " + queryId);
-        console.log("[Debug] body.targets.db -: '" + dbLookUp + "'" )
-        console.log("[Debug] body.db.db -: '" + body.db.db + "'")
-        console.log("[Debug] queryArg.collection -: '" + queryArgs.collection + "'")
+        //console.log("[Debug] queryId -: " + queryId);
+        //console.log("[Debug] body.targets.db -: '" + dbLookUp + "'" )
+        //console.log("[Debug] body.db.db -: '" + body.db.db + "'")
+        //console.log("[Debug] queryArg.collection -: '" + queryArgs.collection + "'")
       }
 
 
