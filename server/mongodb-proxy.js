@@ -297,20 +297,27 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
     else
     {
 
+      console.log("Database: " + body.db.db)
+
       dbLookUp = body.targets[queryId].target.split(".")[1];
       body.db.db = dbLookUp;
 
+      console.log("Database: ->> " + body.db.db)
+
       const db = client.db(body.db.db);
 
-      console.log(queryArgs.collection)
+      console.log("Collection: " + queryArgs.collection)
 
       // Get the documents collection
       if(queryArgs.collection.split(".").length > 1){
         //extract collection name, aviod triming off collection name with "." in it (consecutive "...") will treat as one "."
         queryArgs.collection = queryArgs.collection.split(".").slice(1).filter(Boolean).join(".")
       }
+      else{
+        queryArgs.collection = "EMPTY_COLLECITON_NAME_IPNUT"
+      }
 
-      console.log("->> " + queryArgs.collection)
+      console.log("Collection: ->> " + queryArgs.collection)
 
       const collection = db.collection(queryArgs.collection);
       logQuery(queryArgs.pipeline, queryArgs.agg_options)
