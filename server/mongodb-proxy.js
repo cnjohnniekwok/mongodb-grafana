@@ -310,6 +310,8 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
         queryArgs.collection = queryArgs.collection.split(".").slice(1).filter(Boolean).join(".")
       }
 
+      console.log("->> " + queryArgs.collection)
+
       const collection = db.collection(queryArgs.collection);
       logQuery(queryArgs.pipeline, queryArgs.agg_options)
       var stopwatch = new Stopwatch(true)
