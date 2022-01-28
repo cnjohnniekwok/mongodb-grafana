@@ -302,6 +302,8 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
 
       const db = client.db(body.db.db);
 
+      console.log(queryArgs.collection)
+
       // Get the documents collection
       if(queryArgs.collection.split(".").length > 1){
         //extract collection name, aviod triming off collection name with "." in it (consecutive "...") will treat as one "."
