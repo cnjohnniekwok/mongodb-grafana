@@ -301,15 +301,12 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
 
       dbLookUp = body.targets[queryId].target.split(".")[1];
       if(dbLookUp == ""){
+        //make sure database will never be empty string
         dbLookUp = "EMPTY_DATABASE_NAME_IPNUT";
       }
       body.db.db = dbLookUp;
-
-      console.log("Database: ->> " + body.db.db)
-
       const db = client.db(body.db.db);
 
-      console.log("Collection: " + queryArgs.collection)
 
       // Get the documents collection
       if(queryArgs.collection.split(".").length > 1){
@@ -318,10 +315,9 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
       }
 
       if(queryArgs.collection == ""){
+        //make sure collection will never be empty string
         queryArgs.collection = "EMPTY_COLLECITON_NAME_IPNUT";
       }
-
-      console.log("Collection: ->> " + queryArgs.collection)
 
       const collection = db.collection(queryArgs.collection);
       logQuery(queryArgs.pipeline, queryArgs.agg_options)
