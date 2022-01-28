@@ -300,6 +300,9 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
       console.log("Database: " + body.db.db)
 
       dbLookUp = body.targets[queryId].target.split(".")[1];
+      if(dbLookUp == ""){
+        dbLookUp = "EMPTY_DATABASE_NAME_IPNUT";
+      }
       body.db.db = dbLookUp;
 
       console.log("Database: ->> " + body.db.db)
@@ -314,7 +317,7 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
         queryArgs.collection = queryArgs.collection.split(".").slice(1).filter(Boolean).join(".")
       }
       else{
-        queryArgs.collection = "EMPTY_COLLECITON_NAME_IPNUT"
+        queryArgs.collection = "EMPTY_COLLECITON_NAME_IPNUT";
       }
 
       console.log("Collection: ->> " + queryArgs.collection)
