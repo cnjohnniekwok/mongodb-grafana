@@ -316,7 +316,8 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
         //extract collection name, aviod triming off collection name with "." in it (consecutive "...") will treat as one "."
         queryArgs.collection = queryArgs.collection.split(".").slice(1).filter(Boolean).join(".")
       }
-      else{
+
+      if(queryArgs.collection == ""){
         queryArgs.collection = "EMPTY_COLLECITON_NAME_IPNUT";
       }
 
