@@ -297,8 +297,6 @@ function runAggregateQuery( requestId, queryId, body, queryArgs, res, next )
     else
     {
 
-      console.log("Database: " + body.db.db)
-
       dbLookUp = body.targets[queryId].target.split(".")[1];
       if(dbLookUp == ""){
         //make sure database will never be empty string
